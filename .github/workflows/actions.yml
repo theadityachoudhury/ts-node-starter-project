@@ -35,12 +35,3 @@ jobs:
          npm install;
          npm ci;
          npm run build;
-         
-      - name: Wait for Render Deployment
-        uses: bounceapp/render-action@0.6.0
-        with:
-          render-token: rnd_qtIgYInc0kKF4ViJ3odJGlISuBJE
-          service-id: srv-cm1c8vun7f5s73e6t930
-          retries: 20
-          wait: 16000
-          sleep: 30000
