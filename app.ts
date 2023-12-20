@@ -1,17 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
-import consola from "consola";
-import Config from "./Config";
 import cors from "cors";
+import { startServer } from "./Utils";
 
 //Server Initialization
 const app = express();
 
 //Server Configurations
 app.use(
-    cors({
-        credentials: true,
-        origin: ["http://localhost:5173"],
-    })
+	cors({
+		credentials: true,
+		origin: ["http://localhost:5173"],
+	})
 );
 
 app.use(express.json());
@@ -21,13 +20,13 @@ app.use(express.urlencoded({ extended: true }));
 
 //Default routes
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With, Content-Type, Accept");
-    next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With, Content-Type, Accept");
+	next();
 });
 
-app.get("/",(req: Request, res: Response, next: NextFunction) => {
-    res.send({
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+	res.send({
 		data: {
 			appName: "Starter Pack | Backend",
 			developedBy: "Aditya Choudhury",
@@ -42,7 +41,7 @@ app.get("/",(req: Request, res: Response, next: NextFunction) => {
 app.get("/health", (req: Request, res: Response) => {
 	return res.status(200).json({
 		status: 200,
-		message:"Server is up and running"
+		message: "Server is up and running"
 	})
 });
 
@@ -56,11 +55,4 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 	});
 });
 
-
-const port = Config.PORT || 5000;
-	app.listen(port, () => {
-		consola.success({
-			message: `Server is running at http://localhost:${port}`,
-			badge: true,
-		});
-	});
+startServer(app);
