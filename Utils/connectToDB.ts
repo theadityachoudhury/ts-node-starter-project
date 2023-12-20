@@ -8,6 +8,10 @@ export async function connectToDB() {
             serverSelectionTimeoutMS: Config.REQUEST_TIMEOUT,
             writeConcern: { w: "majority" },
         });
+        consola.start({
+            message: "Connecting to"+Config.DB,
+            badge: true,
+        });
         consola.success({
             message: `Suceessfully connected to the DB`,
             badge: true,

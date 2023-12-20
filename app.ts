@@ -1,6 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { startServer } from "./Utils";
+import Auth from "./Routes/Auth";
+import cookieParser from "cookie-parser";
 
 //Server Initialization
 const app = express();
@@ -15,6 +17,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //API routes starts here
 
@@ -44,6 +47,9 @@ app.get("/health", (req: Request, res: Response) => {
 		message: "Server is up and running"
 	})
 });
+
+//App Routes
+app.use("/api/auth", Auth);
 
 // Default not-found route
 app.use((req: Request, res: Response, next: NextFunction) => {
